@@ -43,7 +43,7 @@
 
 		var margin = {top: 40, right: 10, bottom: 10, left: 10},
 		    width = 960 - margin.left - margin.right,
-		    height = 500 - margin.top - margin.bottom;
+		    height = 600 - margin.top - margin.bottom;
 
 		var color = d3.scale.category20c();
 
@@ -65,7 +65,7 @@
 		    .enter().append("div")
 		      .attr("class", "node")
 		      .call(position)
-		      .style("background", function(d) { return d.children ? color(d.item) : null; })
+		      .style("background", function(d) { return d.children ? color(d.category) : null; })
 		      .text(function(d) { return d.children ? null : d.item; });
 
 		  d3.selectAll("input").on("change", function change() {
