@@ -36,14 +36,14 @@
 		    .style("left", margin.left + "px")
 		    .style("top", margin.top + "px");
 
-		d3.json("lostandfound.json", function(error, root) {
+		d3.json("lostandfound.json", function(root) {
 			var node = div.datum(root).selectAll(".node")
 				.data(treemap.nodes)
 				.enter().append("div")
 				.attr("class", "node")
 				.call(position)
 				.style("background", function(d) { return d.children ? color(d.category) : null; })
-				.text(function(d) { return d.item; });
+				.text(function(d) { return d.category; });
 		});
 
 		function position() {
