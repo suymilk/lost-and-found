@@ -5,18 +5,9 @@
 	<body>
 	<style>
 		body {
-		  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 		  margin: auto;
-		  position: relative;
 		  width: 960px;
 		}
-
-		form {
-		  position: absolute;
-		  right: 10px;
-		  top: 10px;
-		}
-
 		.node {
 		  border: solid 1px white;
 		  font: 10px sans-serif;
@@ -67,18 +58,6 @@
 		      .call(position)
 		      .style("background", function(d) { return d.children ? color(d.category) : null; })
 		      .text(function(d) { return d.children ? null : d.item; });
-
-		  d3.selectAll("input").on("change", function change() {
-		    var value = this.value === "count"
-		        ? function() { return 1; }
-		        : function(d) { return d.count; };
-
-		    node
-		        .data(treemap.value(value).nodes)
-		      .transition()
-		        .duration(1500)
-		        .call(position);
-		  });
 		});
 
 		function position() {
