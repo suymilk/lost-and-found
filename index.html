@@ -20,11 +20,25 @@
 	</style>
 </head>
 	<script>
+		function flatten(lost_data) {
+
+			for (var i = 0; i < lost_data.children.length; i++) {
+				for (var j = 0; j < lost_data.children[i].children.length; j++) {
+						lost_data += lost_data.children[i].children[j].count
+				}
+
+			}
+
+
+			return lost_data
+
+		}
 		var margin = {top: 40, right: 10, bottom: 10, left: 10},
 		    width = 960 
 		    height = 600 
 
-		var color = d3.scale.category20c();
+		var color = d3.scale.ordinal()
+			.range(["#a49ac1", "#465002", "#3a1cbc", "#cfb2a2", "#22e4ee", "#c8a249", "#f4e71d", "#f2253b", "#5f6df9", "#59897d", "#d3e4c7", "#9faafb", "#8e3646", "#14b293", "#b0dfc4", "#b27f41", "#86eeed", "#bb8f84", "#71b6e1", "#b96ca7", "#dc6a4b", "#686083", "#d0eab1"]);
 
 		var treemap = d3.layout.treemap()
 			.size([width, height])
@@ -37,13 +51,14 @@
 		    .style("top", margin.top + "px");
 
 		d3.json("lostandfound.json", function(root) {
+			window.lost_data = root;
 			var node = div.datum(root).selectAll(".node")
 				.data(treemap.nodes)
 				.enter().append("div")
 				.attr("class", "node")
 				.call(position)
 				.style("background", function(d) { return d.children ? color(d.category) : null; })
-				.text(function(d) { return d.category; });
+				.text(function(d) { return d.item; });
 		});
 
 		function position() {
